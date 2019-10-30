@@ -15,10 +15,13 @@ server.post('/api/users', (req, res) => {
 
     db.insert(reqBody)
         .then(user => {
-            res.status(201).json({message: 'successfully created user'})
+            if(reqBody.name && reqBody.bio)
+                res.status(201).json(user);
+            else
+                res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
         })
         .catch(err => {
-            res.status(500).json({message: `Failed to add user, ${err}`})
+            res.status(500).json({ error: "There was an error while saving the user to the database" })
         })
 
 })
