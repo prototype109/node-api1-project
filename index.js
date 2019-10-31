@@ -16,7 +16,7 @@ server.post('/api/users', (req, res) => {
     db.insert(reqBody)
         .then(user => {
             if(reqBody.name && reqBody.bio)
-                res.status(201).json(user);
+                res.status(201).json(reqBody);
             else
                 res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
         })
